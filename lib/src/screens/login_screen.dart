@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tasks/src/screens/register_screen.dart';
 import 'package:tasks/src/shared/spacing.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,12 +41,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Email Required';
+                            }
+                            return null;
+                          },
                           controller: emailcontroller,
                           decoration: const InputDecoration(
                               hintText: "Email", prefixIcon: Icon(Icons.email)),
                         ),
                         space16,
                         TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password Required';
+                            }
+                            return null;
+                          },
                           controller: passwordcontroller,
                           decoration: const InputDecoration(
                               hintText: "Password",
@@ -69,11 +83,44 @@ class _LoginScreenState extends State<LoginScreen> {
                           iconSize: 32,
                           style: IconButton.styleFrom(
                               minimumSize: const Size(56, 56)),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (emailcontroller.text.isNotEmpty &&
+                                passwordcontroller.text.isNotEmpty) {
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: emailcontroller.text.trim(),
+                                      password: passwordcontroller.text.trim())
+                                  .then((value) {
+                                final user = value.user!.uid;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Loged in as $user')));
+                              }).catchError((error) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            (error as FirebaseException)
+                                                    .message ??
+                                                'error')));
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Email and Password is required')));
+                            }
+                          },
                           icon: const Icon(Icons.arrow_forward))
                     ],
                   ),
-                )
+                ),
+                space8,
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RegisterScreen()));
+                    },
+                    child: Text('Don not have an account, Create here')),
               ],
             ),
           ),

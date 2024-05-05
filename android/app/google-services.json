@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "445779417374",
+    "project_id": "tasks-d05cc",
+    "storage_bucket": "tasks-d05cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445779417374:android:e4c632c05372a53b72910f",
+        "android_client_info": {
+          "package_name": "aryan.com.tasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmWyzwrvx8RerWh2ckrph6YfIh075Xqt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

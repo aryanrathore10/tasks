@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks/src/controllers/home_controller.dart';
 import 'package:tasks/src/screens/login_screen.dart';
 import 'package:tasks/src/shared/themes.dart';
 
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Task",
       theme: themelight,
-      home: LoginScreen(),
+      home: const HomeController(),
     );
   }
 }
