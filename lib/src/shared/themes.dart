@@ -14,6 +14,11 @@ final themelight = ThemeData(
         onBackground: Colors.black,
         surface: Colors.white,
         onSurface: Colors.black),
+    filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+            minimumSize: Size.fromHeight(48),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16)))),
     inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white70,
