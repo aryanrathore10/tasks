@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tasks/src/controllers/home_controller.dart';
+import 'package:tasks/src/providers/task_provider.dart';
 import 'package:tasks/src/shared/themes.dart';
 
 class App extends StatelessWidget {
@@ -7,10 +9,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Task",
-      theme: themelight,
-      home: const HomeController(),
+    return ChangeNotifierProvider<Task_Provider>(
+      create: (context) => Task_Provider(),
+      child: MaterialApp(
+        title: "Task",
+        theme: themelight,
+        home: const HomeController(),
+      ),
     );
   }
 }

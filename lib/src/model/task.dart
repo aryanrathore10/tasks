@@ -12,7 +12,7 @@ class Task {
   static Task fromMap(Map<String, dynamic> data) {
     return Task(
         title: data['title'],
-        isDone: data["is_done"],
+        isDone: data["isDone"],
         description: data['description']);
   }
 }

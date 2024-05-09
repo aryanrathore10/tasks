@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tasks/src/reporestory/task_repo.dart';
+import 'package:provider/provider.dart';
+import 'package:tasks/src/providers/task_provider.dart';
 import 'package:tasks/src/widgets/add_task_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,21 +12,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<Task_Provider>(context, listen: false).intialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TaskRepo.getAllTasks();
     return Scaffold(
         appBar: AppBar(
           title: Text(
             "Tasks",
           ),
         ),
-        body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Log Out')),
-        ),
+        body: Consumer<Task_Provider>(builder: (context, data, child) {
+          final tasks = data.getTasks();
+          return ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                return CheckboxListTile(
+                  value: tasks[index].isDone,
+                  onChanged: (v) {},
+                  title: Text(tasks[index].title),
+                  subtitle: Text(tasks[index].description),
+                );
+              });
+        }),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
