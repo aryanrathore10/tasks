@@ -24,4 +24,15 @@ class Task_Provider extends ChangeNotifier {
   Future<void> _updateTask() async {
     await _taskRepository.updateTaskList(_tasks);
   }
+
+  Future<void> changeStatus(String id, bool status) async {
+    final currentTask = _tasks.where((element) => element.id == id).first;
+    final Task updatedTask = currentTask.copyWith(isDone: status);
+
+    int index = _tasks.indexOf(currentTask);
+    _tasks.removeAt(index);
+    _tasks.insert(index, updatedTask);
+    await _updateTask();
+    notifyListeners();
+  }
 }

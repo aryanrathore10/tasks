@@ -32,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return CheckboxListTile(
                   value: tasks[index].isDone,
-                  onChanged: (v) {},
+                  onChanged: (v) {
+                    data.changeStatus(tasks[index].id, v!);
+                  },
                   title: Text(tasks[index].title),
                   subtitle: Text(tasks[index].description),
                 );
