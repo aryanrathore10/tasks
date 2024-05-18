@@ -14,4 +14,14 @@ class Task_Provider extends ChangeNotifier {
     _tasks = await _taskRepository.getAllTasks();
     notifyListeners();
   }
+
+  Future<void> addTask(Task task) async {
+    _tasks.add(task);
+    await _updateTask();
+    notifyListeners();
+  }
+
+  Future<void> _updateTask() async {
+    await _taskRepository.updateTaskList(_tasks);
+  }
 }

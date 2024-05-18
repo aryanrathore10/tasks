@@ -12,4 +12,10 @@ class TaskRepo {
     }
     return res;
   }
+
+  Future<void> updateTaskList(List<Task> tasks) async {
+    final tasksAsMap = tasks.map((e) => e.toMap()).toList();
+    final data = <String, dynamic>{"tasks": tasksAsMap};
+    await _taskCollection.doc("npo7ucj6rmmMJ8Cfcrq3").set(data);
+  }
 }

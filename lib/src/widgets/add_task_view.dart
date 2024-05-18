@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tasks/src/model/task.dart';
+import 'package:tasks/src/providers/task_provider.dart';
 import 'package:tasks/src/shared/spacing.dart';
 
 class AddTaskView extends StatelessWidget {
@@ -23,7 +26,6 @@ class AddTaskView extends StatelessWidget {
             controller: titleController,
           ),
           space16,
-          
           TextFormField(
             minLines: 4,
             maxLines: 4,
@@ -39,7 +41,14 @@ class AddTaskView extends StatelessWidget {
           space16,
           FilledButton(
               onPressed: () {
-                if (formkey.currentState!.validate()) {}
+                if (formkey.currentState!.validate()) {
+                  final Task task = Task.newTask(
+                      title: titleController.text.trim(),
+                      description: descriptionController.text.trim());
+                  Provider.of<Task_Provider>(context, listen: false)
+                      .addTask(task);
+                  Navigator.of(context).pop();
+                }
               },
               child: Text("Add")),
         ]));
